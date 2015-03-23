@@ -78,6 +78,22 @@ loglevel 3
     chmod 0777 /dev/cpuctl/tasks
     write /dev/cpuctl/cpu.shares 1024
 
+# dafeng
+    chmod 0777 /dev/s3c-mfc
+    chmod 0777 /dev/ttySAC0
+    chmod 0777 /dev/pin-485
+    chmod 0777 /dev/ttyMAX0
+    chmod 0777 /dev/pin_app_conf_0
+    chmod 0777 /dev/pin_app_conf_1
+    chmod 0777 /dev/pin_app_conf_2
+    chmod 0777 /dev/pin_app_conf_3
+    chmod 0777 /dev/pin_app_conf_4
+    chmod 0777 /dev/pin_app_conf_5
+    chmod 0777 /dev/pin_app_conf_6
+    chmod 0777 /dev/pin_app_conf_7
+    chmod 0777 /dev/pin_app_conf_8
+    chmod 0777 /dev/pin_app_conf_9
+
     mkdir /dev/cpuctl/fg_boost
     chown system system /dev/cpuctl/fg_boost/tasks
     chmod 0777 /dev/cpuctl/fg_boost/tasks
