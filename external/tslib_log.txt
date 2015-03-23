@@ -1,0 +1,105 @@
+https://github.com/etmatrix/tslib.git
+
+config.h
+#ifndef PRINT_MSG__H
+#define PRINT_MSG__H
+#include <stdlib.h>
+#include <stdio.h>
+#include <fcntl.h>
+typedef struct write_a{
+#define OPS_WRITE_CALIBRATE_DATA 1
+#define OPS_CALIBRATE_PRINT_MSG 2
+        int ops;
+        int val[10];
+        char buf[200];
+}Write_a;
+#define print_msg(msg) do{int fd = open("/dev/calibrate-a",O_RDWR);char buf[1024];Write_a* wa=buf;wa->ops=2;strcpy(wa->buf,msg);strcat(wa->buf,"\n");write(fd,buf,sizeof(Write_a));close(fd);}while(0)
+#define perror print_msg
+#endif
+
+
+tests/ts_calibrate.c
+static int is_need_calibrate()
+{
+        int fd = open("/dev/calibrate-a",O_RDONLY);
+        if (fd <0){
+                perror("open");
+                return 0;
+        }
+        int val=0;
+        int ret = read(fd,&val,sizeof(int));
+        if (ret <0){
+                perror("read");
+                close(fd);
+                return 0;
+        }
+        close(fd);
+        return val;
+}
+static int write_data_to_kernel(Write_a* wa)
+{
+        int fd = open("/dev/calibrate-a",O_RDWR);
+        if (fd <0){ perror("open"); return -1; }
+        write(fd,wa,sizeof(Write_a));
+        close(fd);
+        return 0;
+}
+static int set_kernel_zero_data()
+{
+  int i;
+  Write_a wa;
+  wa.ops=OPS_WRITE_CALIBRATE_DATA;
+  for (i=0;i<7;i++)
+    wa.val[i]=0;
+  write_data_to_kernel(&wa);
+  return 0;
+}
+static int set_kernel_pointer_data()
+{
+  char* calfile=NULL;
+  Write_a wa;
+  if ((calfile = getenv("TSLIB_CALIBFILE")) == NULL){
+        perror("get TSLIB_CALIBFILE failed");
+        return -1;
+  }
+
+  FILE* fd = fopen(calfile,"r");
+  if (fd == NULL){ perror("fopen");return -1;}
+
+  wa.ops=OPS_WRITE_CALIBRATE_DATA;
+  fscanf(fd,"%d %d %d %d %d %d %d %d %d",wa.val+0,wa.val+1,wa.val+2,wa.val+3,\
+                        wa.val+4,wa.val+5,wa.val+6,wa.val+7,wa.val+8);
+
+  write_data_to_kernel(&wa);
+
+  fclose(fd);
+  return 0;
+}
+#define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))
+
+  const char envs[][100]={
+        "TSLIB_TSDEVICE","/dev/input/event1",
+        "TSLIB_CALIBFILE","/data/mytslib/pointercal",
+        "TSLIB_CONFFILE","/data/mytslib/etc/ts.conf",
+        "TSLIB_PLUGINDIR","/data/mytslib/lib/ts/plugins",
+        "TSLIB_FBDEVICE","/dev/graphics/fb0",
+        "TSLIB_CONSOLEDEVICE","none",
+  };
+void set_my_env()
+{
+  int i;
+  for (i=0;i<ARRAY_SIZE(envs);i=i+2)
+  {
+        setenv(envs[i],envs[i+1],1);
+  }
+}
+
+main function()
+set_my_env();
+if (!is_need_calibrate()){
+	print_msg("no need calibrate\n");
+	set_kernel_pointer_data();
+	return 0;
+}else{
+	set_kernel_zero_data();
+}
