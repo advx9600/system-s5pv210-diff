@@ -27,6 +27,14 @@
     android:orientation="horizontal"
     android:id="@+id/root">
 
+<RelativeLayout
+        android:id="@+id/keyguardview_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
     <!-- left side: status and music -->
     <RelativeLayout
         android:layout_height="match_parent"
@@ -120,5 +128,7 @@
 
 	</RelativeLayout>
 
+	</LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

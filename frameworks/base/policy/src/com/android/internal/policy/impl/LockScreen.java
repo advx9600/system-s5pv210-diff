@@ -261,6 +261,30 @@ class LockScreen extends LinearLayout implements KeyguardScreen {
         }
     }
 
+	class CircleViewMethod implements KeyguardScreenCallback2{
+
+                public CircleViewMethod(){
+                }
+
+                @Override
+                public void pokeWakelock() {
+                        // TODO Auto-generated method stub
+                        mCallback.pokeWakelock();
+                }
+
+                @Override
+                public void pokeWakelock(int paramInt) {
+                        // TODO Auto-generated method stub
+                        mCallback.pokeWakelock();
+                }
+
+                @Override
+                public void goToUnlockScreen() {
+                        // TODO Auto-generated method stub
+                        mCallback.goToUnlockScreen();
+                }
+        }
+
     private void requestUnlockScreen() {
         // Delay hiding lock screen long enough for animation to finish
         postDelayed(new Runnable() {
@@ -371,6 +395,14 @@ class LockScreen extends LinearLayout implements KeyguardScreen {
             MultiWaveViewMethods multiWaveViewMethods = new MultiWaveViewMethods(multiWaveView);
             multiWaveView.setOnTriggerListener(multiWaveViewMethods);
             mUnlockWidgetMethods = multiWaveViewMethods;
+	
+	    final boolean isUseCircle=true;
+           if (isUseCircle){
+              mUnlockWidget.setVisibility(View.INVISIBLE);
+              RelativeLayout relLay = (RelativeLayout)findViewById(R.id.keyguardview_root);
+              CircleLockScreen cirLockView = new CircleLockScreen(context,new CircleViewMethod());
+              relLay.addView(cirLockView,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
+            }
         } else {
             throw new IllegalStateException("Unrecognized unlock widget: " + mUnlockWidget);
         }
