@@ -1497,6 +1497,16 @@
         <enum name="KEYCODE_CALENDAR" value="208" />
         <enum name="KEYCODE_MUSIC" value="209" />
         <enum name="KEYCODE_CALCULATOR" value="210" />
+        <enum name="KEYCODE_F13" value="211" />
+        <enum name="KEYCODE_F14" value="212" />
+        <enum name="KEYCODE_F15" value="213" />
+        <enum name="KEYCODE_F16" value="214" />
+        <enum name="KEYCODE_F17" value="215" />
+        <enum name="KEYCODE_F18" value="216" />
+        <enum name="KEYCODE_F19" value="217" />
+        <enum name="KEYCODE_F20" value="218" />
+        <enum name="KEYCODE_F21" value="219" />
+        <enum name="KEYCODE_F22" value="220" />
     </attr>
 
     <!-- ***************************************************************** -->

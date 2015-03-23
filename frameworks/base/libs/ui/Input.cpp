@@ -215,6 +215,16 @@ bool KeyEvent::isSystemKey(int32_t keyCode) {
         case AKEYCODE_CAMERA:
         case AKEYCODE_FOCUS:
         case AKEYCODE_SEARCH:
+	case AKEYCODE_F13:
+	case AKEYCODE_F14:
+	case AKEYCODE_F15:
+	case AKEYCODE_F16:
+	case AKEYCODE_F17:
+	case AKEYCODE_F18:
+	case AKEYCODE_F19:
+	case AKEYCODE_F20:
+	case AKEYCODE_F21:
+	case AKEYCODE_F22:
             return true;
     }
     

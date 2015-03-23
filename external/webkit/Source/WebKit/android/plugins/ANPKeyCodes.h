@@ -221,6 +221,16 @@ enum ANPKeyCodes {
     kProgYellow_ANPKeyCode = 185,
     kProgBlue_ANPKeyCode = 186,
     kAppSwitch_ANPKeyCode = 187,
+    kF13_ANPKeyCode = 211,
+    kF14_ANPKeyCode = 212,
+    kF15_ANPKeyCode = 213,
+    kF16_ANPKeyCode = 214,
+    kF17_ANPKeyCode = 215,
+    kF18_ANPKeyCode = 216,
+    kF19_ANPKeyCode = 217,
+    kF20_ANPKeyCode = 218,
+    kF21_ANPKeyCode = 219,
+    kF22_ANPKeyCode = 220,
 
     // NOTE: If you add a new keycode here you must also add it to several other files.
     //       Refer to frameworks/base/core/java/android/view/KeyEvent.java for the full list.

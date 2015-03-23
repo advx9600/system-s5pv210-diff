@@ -254,6 +254,16 @@ enum {
     AKEYCODE_CALENDAR        = 208,
     AKEYCODE_MUSIC           = 209,
     AKEYCODE_CALCULATOR      = 210,
+    AKEYCODE_F13             = 211,
+    AKEYCODE_F14             = 212,
+    AKEYCODE_F15             = 213,
+    AKEYCODE_F16             = 214,
+    AKEYCODE_F17             = 215,
+    AKEYCODE_F18             = 216,
+    AKEYCODE_F19             = 217,
+    AKEYCODE_F20             = 218,
+    AKEYCODE_F21             = 219,
+    AKEYCODE_F22             = 220,
 
     // NOTE: If you add a new keycode here you must also add it to several other files.
     //       Refer to frameworks/base/core/java/android/view/KeyEvent.java for the full list.

@@ -592,7 +592,18 @@ public class KeyEvent extends InputEvent implements Parcelable {
      * Used to launch a calculator application. */
     public static final int KEYCODE_CALCULATOR      = 210;
 
-    private static final int LAST_KEYCODE           = KEYCODE_CALCULATOR;
+    public static final int KEYCODE_F13             = 211;
+    public static final int KEYCODE_F14             = 212;
+    public static final int KEYCODE_F15             = 213;
+    public static final int KEYCODE_F16             = 214;
+    public static final int KEYCODE_F17             = 215;
+    public static final int KEYCODE_F18             = 216;
+    public static final int KEYCODE_F19             = 217;
+    public static final int KEYCODE_F20             = 218;
+    public static final int KEYCODE_F21             = 219;
+    public static final int KEYCODE_F22             = 220;
+
+    private static final int LAST_KEYCODE           = KEYCODE_F22;
 
     // NOTE: If you add a new keycode here you must also add it to:
     //  isSystem()
@@ -825,6 +836,16 @@ public class KeyEvent extends InputEvent implements Parcelable {
         names.append(KEYCODE_CALENDAR, "KEYCODE_CALENDAR");
         names.append(KEYCODE_MUSIC, "KEYCODE_MUSIC");
         names.append(KEYCODE_CALCULATOR, "KEYCODE_CALCULATOR");
+        names.append(KEYCODE_F13, "KEYCODE_F13");
+        names.append(KEYCODE_F14, "KEYCODE_F14");
+        names.append(KEYCODE_F15, "KEYCODE_F15");
+        names.append(KEYCODE_F16, "KEYCODE_F16");
+        names.append(KEYCODE_F17, "KEYCODE_F17");
+        names.append(KEYCODE_F18, "KEYCODE_F18");
+        names.append(KEYCODE_F19, "KEYCODE_F19");
+        names.append(KEYCODE_F20, "KEYCODE_F20");
+        names.append(KEYCODE_F21, "KEYCODE_F21");
+        names.append(KEYCODE_F22, "KEYCODE_F22");
     };
 
     // Symbolic names of all metakeys in bit order from least significant to most significant.

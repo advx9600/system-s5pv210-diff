@@ -235,6 +235,17 @@ static const KeycodeLabel KEYCODES[] = {
     { "CALENDAR", 208 },
     { "MUSIC", 209 },
     { "CALCULATOR", 210 },
+    {"F13",211},
+    {"F14",212},
+    {"F15",213},
+    {"F16",214},
+    {"F17",215},
+    {"F18",216},
+    {"F19",217},
+    {"F20",218},
+    {"F21",219},
+    {"F22",220},
+
 
     // NOTE: If you add a new keycode here you must also add it to several other files.
     //       Refer to frameworks/base/core/java/android/view/KeyEvent.java for the full list.

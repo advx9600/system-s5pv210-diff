@@ -3033,6 +3033,26 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     }
                 }
                 break;
+            }
+
+	    case KeyEvent.KEYCODE_F13:
+	    case KeyEvent.KEYCODE_F14:
+	    case KeyEvent.KEYCODE_F15:
+	    case KeyEvent.KEYCODE_F16:
+	    case KeyEvent.KEYCODE_F17:
+	    case KeyEvent.KEYCODE_F18:
+	    case KeyEvent.KEYCODE_F19:
+	    case KeyEvent.KEYCODE_F10:
+	    case KeyEvent.KEYCODE_F21:
+	    case KeyEvent.KEYCODE_F22:{
+		if (down){
+		    android.util.Log.i(TAG,"send broadcast "+KeyEvent.keyCodeToString(keyCode));
+		    Intent intent = new Intent("com.selfdefine.keycode");
+		    intent.putExtra("reason", KeyEvent.keyCodeToString(keyCode));
+		    intent.putExtra("value" , keyCode);
+		    mContext.sendBroadcast(intent);
+		}
+		break;
 	    }
         }
         return result;
