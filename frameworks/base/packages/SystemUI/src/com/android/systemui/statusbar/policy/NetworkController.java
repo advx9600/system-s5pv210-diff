@@ -957,8 +957,7 @@ public class NetworkController extends BroadcastReceiver {
         else if (!mDataConnected && !mWifiConnected && !mBluetoothTethered && !mWimaxConnected) {
             // pretty much totally disconnected
 
-          //  label = context.getString(R.string.status_bar_settings_signal_meter_disconnected);
-	   if (mWifiEnabled) label = context.getString(R.string.status_bar_settings_signal_meter_disconnected); else label="";
+            label = context.getString(R.string.status_bar_settings_signal_meter_disconnected);
             // On devices without mobile radios, we want to show the wifi icon
             combinedSignalIconId =
                 mHasMobileDataFeature ? mDataSignalIconId : mWifiIconId;
