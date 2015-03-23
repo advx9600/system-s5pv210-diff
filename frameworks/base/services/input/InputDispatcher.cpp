@@ -388,7 +388,9 @@ void InputDispatcher::dispatchOnceInnerLocked(nsecs_t* nextWakeupTime) {
     bool done = false;
     DropReason dropReason = DROP_REASON_NOT_DROPPED;
     if (!(mPendingEvent->policyFlags & POLICY_FLAG_PASS_TO_USER)) {
-	dropReason = DROP_REASON_POLICY;
+	if (mPendingEvent->type != EventEntry::TYPE_MOTION){
+		dropReason = DROP_REASON_POLICY;
+	}
     } else if (!mDispatchEnabled) {
         dropReason = DROP_REASON_DISABLED;
     }
