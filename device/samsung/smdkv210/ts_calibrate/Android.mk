@@ -1,4 +1,4 @@
-ifeq ($(TARGET_DEVICE),smdkv210)
+ifneq ($(TARGET_DEVICE),smdkv210)
 LOCAL_PATH:= $(call my-dir)
 ###############################################################################
 include $(CLEAR_VARS)
