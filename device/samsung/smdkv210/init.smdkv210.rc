@@ -1,0 +1,166 @@
+import init.smdkv210.usb.rc
+
+on early-init
+    export EXTERNAL_STORAGE /mnt/sdcard
+    mkdir /mnt/sdcard 0000 system system
+    # for backwards compatibility
+    symlink /mnt/sdcard /sdcard
+
+	mkdir /mnt/udisk 0076 system system
+    symlink /mnt/udisk /udisk
+
+on post-fs-data
+    # we will remap this as /mnt/sdcard with the sdcard fuse tool
+    mkdir /data/media 0775 media_rw media_rw
+    chown media_rw media_rw /data/media
+    setprop vold.post_fs_data_done 1
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+
+# exec the ts calibration
+    mkdir /data/misc 0777 system system
+    chmod 0777 /data/misc
+    exec /system/bin/calibrate /dev/input/event0
+
+# 3D init
+service pvrsrvinit /system/vendor/bin/pvrsrvinit
+    class core
+    user root
+    group root
+    oneshot
+
+on boot
+	mount debugfs none /sys/kernel/debug
+	chmod 0666 /dev/pvrsrvkm
+    setprop ro.build.product smdkv210
+    setprop ro.product.device smdkv210
+
+	chmod 0666 /sys/class/backlight/pwm-backlight.0/brightness
+	chown system system /sys/class/backlight/pwm-backlight.0/brightness
+
+service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
+    disabled                        
+    oneshot  
+	
+########################################################################
+service calibrated /system/bin/calibrated
+    user root
+    group system
+    disabled
+    oneshot
+
+########################################################################
+service ril-daemon /system/bin/rild
+    class core
+    socket rild stream 0660 root radio
+    socket rild-debug stream 0660 radio system
+    user root
+    group radio cache inet misc audio sdcard_rw
+    disabled
+
+service vchanneld-daemon /system/bin/vchanneld
+    class core
+    user root
+    group radio cache inet misc
+#    oneshot
+
+on property:vchanneld.status=start
+    start ril-daemon
+
+service pppd_gprs /system/etc/ppp/init.gprs-pppd debug file /data/ppp/options.gprs
+    class core
+    user root
+    group radio cache inet misc
+    disabled
+    
+on property:net.pppd.gprs=start
+    start pppd_gprs
+
+on property:net.pppd.gprs=stop
+    stop pppd_gprs
+######################################################################### 
+#service install_wlan /system/bin/install_wlan
+#    class core
+#    disabled
+#    oneshot
+
+#on property:wlan.driver.status=start
+#    start install_wlan
+
+#on property:wlan.driver.status=unloaded
+#    rmmod libertas_sdio.ko
+    
+#on property:init.svc.wpa_supplicant=stopped
+#	stop dhcpcd_wlan0
+
+#service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c /data/misc/wifi/wpa_supplicant.conf
+#    class core
+#    socket wpa_wlan0 dgram 0666 wifi wifi
+#    disabled
+#    oneshot
+
+service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
+    socket wpa_wlan0 dgram 660 wifi wifi
+    group wifi inet
+    disabled
+    oneshot
+
+service dhcpcd_wlan0 /system/bin/logwrapper /system/bin/dhcpcd -o domain_name_servers -ABKL
+    class core
+    disabled
+    oneshot
+    group system dhcp
+
+on property:init.svc.wpa_supplicant=stopped
+	stop dhcpcd_wlan0
+#########################################################################
+service hciattach /system/bin/logwrapper /system/bin/hciattach.sh
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+service dbus /system/bin/dbus-daemon --system --nofork
+    class core
+    socket dbus stream 660 bluetooth bluetooth
+    user bluetooth
+    group bluetooth net_bt_admin
+
+service bluetoothd /system/bin/bluetoothd -n
+    class core
+    socket bluetooth stream 660 bluetooth bluetooth
+    socket dbus_bluetooth stream 660 bluetooth bluetooth
+    # init.rc does not yet support applying capabilities, so run as root and
+    # let bluetoothd drop uid to bluetooth with the right linux capabilities
+    group bluetooth net_bt_admin misc
+    disabled
+
+service hfag /system/bin/sdptool add --channel=10 HFAG
+    class core
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+service hsag /system/bin/sdptool add --channel=11 HSAG
+    class core
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+service opush /system/bin/sdptool add --channel=12 OPUSH
+    class core
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+service pbap /system/bin/sdptool add --channel=19 PBAP
+    class core
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+#########################################################################
