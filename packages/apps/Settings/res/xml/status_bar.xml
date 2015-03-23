@@ -43,6 +43,13 @@
         android:title="@string/status_bar_general_title">
 
         <CheckBoxPreference
+            android:key="combined_bar_force_hide"
+	    android:disableDependentsState="true"
+            android:title="@string/combined_bar_force_hide_title"
+            android:summary="@string/combined_bar_force_hide_summary"
+            android:defaultValue="true" />
+
+        <CheckBoxPreference
             android:key="combined_bar_auto_hide"
 	    android:dependency="combined_bar_force_hide"
             android:title="@string/combined_bar_auto_hide_title"

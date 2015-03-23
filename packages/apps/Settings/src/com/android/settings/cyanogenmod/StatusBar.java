@@ -43,6 +43,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private static final String STATUS_BAR_SIGNAL = "status_bar_signal";
 
+    private static final String COMBINED_BAR_FORCE_HIDE = "combined_bar_force_hide";
     private static final String COMBINED_BAR_AUTO_HIDE = "combined_bar_auto_hide";
 
     private static final String STATUS_BAR_CATEGORY_GENERAL = "status_bar_general";
@@ -56,6 +57,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mStatusBarClock;
 
     private CheckBoxPreference mStatusBarBrightnessControl;
+
+    private CheckBoxPreference mCombinedBarForceHide;
 
     private CheckBoxPreference mCombinedBarAutoHide;
 
@@ -73,6 +76,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarBrightnessControl = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_BRIGHTNESS_CONTROL);
         mStatusBarAmPm = (ListPreference) prefSet.findPreference(STATUS_BAR_AM_PM);
         mStatusBarBattery = (ListPreference) prefSet.findPreference(STATUS_BAR_BATTERY);
+        mCombinedBarForceHide = (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_FORCE_HIDE);
         mCombinedBarAutoHide = (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_AUTO_HIDE);
         mStatusBarCmSignal = (ListPreference) prefSet.findPreference(STATUS_BAR_SIGNAL);
 
@@ -104,6 +108,9 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         		Settings.System.STATUS_BAR_SIGNAL_TEXT, 0);
         mStatusBarCmSignal.setValue(String.valueOf(signalStyle));
         mStatusBarCmSignal.setOnPreferenceChangeListener(this);
+
+        mCombinedBarForceHide.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.COMBINED_BAR_FORCE_HIDE, 0) == 1));
 
         mCombinedBarAutoHide.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.COMBINED_BAR_AUTO_HIDE, 0) == 1));
@@ -149,6 +156,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         } else if (preference == mCombinedBarAutoHide) {
             value = mCombinedBarAutoHide.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(), Settings.System.COMBINED_BAR_AUTO_HIDE, value ? 1 : 0);
+            return true;
+        } else if (preference == mCombinedBarForceHide) {
+            value = mCombinedBarForceHide.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(), Settings.System.COMBINED_BAR_FORCE_HIDE, value ? 1 : 0);
             return true;
 	}
         return false;

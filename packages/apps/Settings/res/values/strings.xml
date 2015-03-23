@@ -774,6 +774,10 @@
     <string name="combined_bar_auto_hide_title">Auto hide</string>
     <string name="combined_bar_auto_hide_summary">Allow combined bar to hide when showing a fullscreen app</string>
 
+    <!-- Combined Bar #dafeng -->
+    <string name="combined_bar_force_hide_title">Force hide</string>
+    <string name="combined_bar_force_hide_summary">Force combined bar to hide </string>
+  
     <!-- Power Widget #CM -->
     <string name="power_widget_title">Power widget</string>
     <string name="title_expanded_widget">Show power widget</string>

@@ -2179,6 +2179,11 @@ public final class Settings {
         public static final String EXPANDED_FLASH_MODE = "expanded_flash_mode";
 
         /**
+        * ForceHide CombinedBar on tablets.
+        * @hide
+        */
+        public static final String COMBINED_BAR_FORCE_HIDE = "combined_bar_force_hide";
+        /**
         * AutoHide CombinedBar on tablets.
         * @hide
         */
