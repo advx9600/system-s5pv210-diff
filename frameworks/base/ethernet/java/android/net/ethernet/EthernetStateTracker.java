@@ -390,6 +390,7 @@ public class EthernetStateTracker extends Handler implements NetworkStateTracker
                         }
                     }
                 }
+		setState(true, msg.what);
                 break;
             }
         }
