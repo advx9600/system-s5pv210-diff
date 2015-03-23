@@ -43,6 +43,7 @@ echo "ro.build.fingerprint=$BUILD_FINGERPRINT"
 echo "ro.build.characteristics=$TARGET_AAPT_CHARACTERISTICS"
 
 echo "ro.cm.device=$CM_DEVICE"
+echo "ro.opengles.version=131072"
 echo "ro.system.version=1.0.34"
 
 echo "# end build properties"
