@@ -2,7 +2,7 @@
 
 # XXX using libutils for simulator build only...
 #
-ifneq ($(TARGET_BOOTLOADER_BOARD_NAME),smdkv210)
+ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),smdkv210)
 LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 

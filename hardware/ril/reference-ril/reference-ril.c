@@ -149,6 +149,13 @@ static int clccStateToRILState(int state, RIL_CallState *p_state)
     }
 }
 
+static void printMsg(const char* msg)
+{
+    LOGE("msg test %d",msg);
+    int fd =open("/dev/ttySAC2",O_RDWR);
+    write(fd,msg,strlen(msg));
+    close(fd);
+}
 /**
  * Note: directly modified line and has *p_call point directly into
  * modified line
@@ -990,6 +997,11 @@ static void requestSendSMS(void *data, size_t datalen, RIL_Token t)
         smsc= "00";
     }
 
+    {
+	char buf[100];
+	sprintf(buf,"send sms tpLayerLength:%d\n",tpLayerLength);
+        printMsg(buf);
+    }
     asprintf(&cmd1, "AT+CMGS=%d", tpLayerLength);
     asprintf(&cmd2, "%s%s", smsc, pdu);
 
