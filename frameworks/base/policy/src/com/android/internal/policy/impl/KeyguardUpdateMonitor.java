@@ -605,7 +605,8 @@ public class KeyguardUpdateMonitor {
     }
 
     public boolean shouldShowBatteryInfo() {
-        return isPluggedIn(mBatteryStatus) || isBatteryLow(mBatteryStatus);
+	return false;
+        //return isPluggedIn(mBatteryStatus) || isBatteryLow(mBatteryStatus);
     }
 
     public CharSequence getTelephonyPlmn() {
