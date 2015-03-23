@@ -102,6 +102,7 @@ public class ReportingService extends Service {
     }
 
     private void promptUser() {
+	/*
         NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         Intent nI = new Intent();
         nI.setComponent(new ComponentName(getPackageName(),Settings.AnonymousStatsActivity.class.getName()));
@@ -115,5 +116,6 @@ public class ReportingService extends Service {
         .setContentTitle(getString(R.string.anonymous_statistics_title))
         .setContentText(getString(R.string.anonymous_notification_desc));
         nm.notify(1, builder.getNotification());
+	*/
     }
 }
